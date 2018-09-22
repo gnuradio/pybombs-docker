@@ -1,7 +1,6 @@
-FROM pybombs-minimal
+FROM pybombs/pybombs-minimal:2.3.3
 LABEL maintainer=martin@gnuradio.org
-
-RUN pybombs config elevate_pre_args ''
+# Create a prefix in /pybombs
 RUN pybombs prefix init /pybombs -a default
-RUN pybombs recipes add gr-recipes git+https://github.com/gnuradio/gr-recipes.git
-RUN pybombs recipes add gr-etcetera git+https://github.com/gnuradio/gr-etcetera.git
+# Add all the default recipe locations
+RUN pybombs recipes add-defaults
