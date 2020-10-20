@@ -7,11 +7,6 @@ ARG makewidth=2
 # Temporarily set frontend to noninteractive to avoid warnings
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Ubuntu 20.04 gets stuck on tzdata configuration during build.
-# Providing a default timezone that can be overridden using build-args:
-ARG TZ=Etc/UTC
-RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
-
 RUN pybombs config makewidth $makewidth
 
 # Now list all the dependencies that we want to ship in this container:
