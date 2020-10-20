@@ -4,9 +4,6 @@ LABEL maintainer=martin@gnuradio.org
 # This allows setting the makewidth temporarily to a higher value
 ARG makewidth=2
 
-# Temporarily set frontend to noninteractive to avoid warnings
-ARG DEBIAN_FRONTEND=noninteractive
-
 RUN pybombs config makewidth $makewidth
 
 # Now list all the dependencies that we want to ship in this container:
