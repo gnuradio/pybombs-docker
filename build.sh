@@ -9,10 +9,11 @@ default_images="pybombs-minimal pybombs-prefix pybombs-commondeps"
 case $cmd in
     build )
         images=${2-$default_images}
+        moreargs="${@:3}"
         for img in $images; do
                 echo -e "\e[1;36mBuilding $org/$img:latest ...\e[0m"
                 cd $img
-               docker build --build-arg makewidth=`nproc` -t $org/$img:latest .
+                docker build --build-arg makewidth=`nproc` $moreargs -t $org/$img:latest .
                 pbversion=`docker run --rm -it $org/$img:latest pybombs --version | tr -d '\r'`
                 docker tag $org/$img:latest $org/$img:$pbversion
                 echo -e "\e[1;36mSuccessfully built pybombs/pybombs-$img (tagged latest and $pbversion).\e[0m"
@@ -41,7 +42,7 @@ case $cmd in
         images=${2-$default_images}
         echo -e "\e[1;36mBuild $images ...\e[0m"
         for img in $images; do
-            ${0} build $img
+            ${0} build $img --no-cache
         done
         echo -e "\e[1;36mPush $images ...\e[0m"
         for img in $images; do
